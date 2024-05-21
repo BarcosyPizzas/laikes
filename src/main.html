@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Bresenham Line</title>
+</head>
+<body>
+    <canvas id="bresenhamCanvas" width="500" height="500" style="border:1px solid #000000;"></canvas>
+    <script>
+        function drawPixel(x, y) {
+            const canvas = document.getElementById('bresenhamCanvas');
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = 'black'; // Set the color of the pixel
+            ctx.fillRect(x, y, 1, 1); // Draw a 1x1 pixel at position (x, y)
+        }
+
+        function bresenhamLine(x0, y0, x1, y1) {
+            let dx = Math.abs(x1 - x0);
+            let dy = -Math.abs(y1 - y0);
+            let sx = (x0 < x1) ? 1 : -1;
+            let sy = (y0 < y1) ? 1 : -1;
+            let err = dx + dy;
+            let e2;
+
+            while (true) {
+                drawPixel(x0, y0); // Draw pixel at (x0, y0)
+                if (x0 === x1 && y0 === y1) break;
+                e2 = 2 * err;
+                if (e2 >= dy) {
+                    err += dy;
+                    x0 += sx;
+                }
+                if (e2 <= dx) {
+                    err += dx;
+                    y0 += sy;
+                }
+            }
+        }
+        // Example usage: Draw a line from (50, 50) to (450, 450)
+        
+        bresenhamLine(20,20,200,100);
+        bresenhamLine(20,20,500,500);
+        bresenhamLine(50,50,100,200);
+    </script>
+  
+</body>
+</html>
+</html>
